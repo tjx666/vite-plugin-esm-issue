@@ -1,7 +1,16 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue'
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [vue()],
-})
+import vitePluginHttp2Proxy from 'vite-plugin-http2-proxy';
+
+export default defineConfig(async ({ mode }) => {
+    return {
+        plugins: [vue(),
+            vitePluginHttp2Proxy({
+                '/api/': {
+                    target: 'https://xxxx/yyyy',
+                },
+            }),
+        ]
+    }
+});
